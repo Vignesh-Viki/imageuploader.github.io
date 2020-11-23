@@ -1,29 +1,31 @@
 <html>
 <head>
-<title>Image Uploader</title>
 <style>
 body {
 background-color: powderblue;}
 #fileupload {
     padding-bottom: 10px;
 
-font-size: 20px;
+font-size: 200%;
 	border-radius: 4px/4px;
 }
 #titlediv{
-font-size: xx-large;
-    padding: 30% 20px 20px 20px;
+    font-size: 400%;
+    padding: 20% 20px 50px 20px;
 }
 div {
 padding-bottom : 10px;
 }
+
 #maindiv   {
     display: table;
-
     margin: auto;
     }
-#link{font-size: 25px;
+#link{font-size: 250%;
     color: blue;
+}
+#buttondiv{
+    padding: 15% 30%;
 }
 button  {
 border: 0px !important;
@@ -31,7 +33,8 @@ border: 0px !important;
     border-radius: 10px/10px;
     color: coral;
     background: darkred;
-    font-size: 20px;}
+    font-size: 200%;
+}
 </style>
 </head>
 <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1.24.min.js"></script>
@@ -56,11 +59,11 @@ var IdentityPoolId = 'us-east-2:1ecbc90f-588a-49d1-8627-b0c673e7eda6' ;
 </script>
 <body>
 <div id = "maindiv"> 
-<div id = "titlediv">Image Uploader</div>
+<div id = "titlediv">  Image Uploader</div>
 <div>        
    <input type="file" id="fileUpload">    
 </div>    
-<div> 
+<div id = "buttondiv"> 
    <button onclick="s3upload()">Submit</button>    
 </div>  
  </div>  
