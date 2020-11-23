@@ -1,0 +1,96 @@
+<html>
+<head>
+<title>Image Uploader</title>
+<style>
+body {
+background-color: powderblue;}
+#fileupload {
+    padding-bottom: 10px;
+
+font-size: 20px;
+	border-radius: 4px/4px;
+}
+#titlediv{
+font-size: xx-large;
+    padding: 30% 20px 20px 20px;
+}
+div {
+padding-bottom : 10px;
+}
+#maindiv   {
+    display: table;
+
+    margin: auto;
+    }
+#link{font-size: 25px;
+    color: blue;
+}
+button  {
+border: 0px !important;
+    padding: 7px 27px;
+    border-radius: 10px/10px;
+    color: coral;
+    background: darkred;
+    font-size: 20px;}
+</style>
+</head>
+<script src="https://sdk.amazonaws.com/js/aws-sdk-2.1.24.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script type="text/javascript">
+//Bucket Configurations
+var bucketName = 'vigneshmbucket' ;
+var bucketRegion = 'us-east-2' ;
+var IdentityPoolId = 'us-east-2:1ecbc90f-588a-49d1-8627-b0c673e7eda6' ;
+
+ AWS.config.update({
+                region: bucketRegion,
+                credentials: new AWS.CognitoIdentityCredentials({
+                    IdentityPoolId: IdentityPoolId
+                })
+            });
+
+            var s3 = new AWS.S3({
+                apiVersion: '2006-03-01',
+                params: {Bucket: bucketName}
+        });
+</script>
+<body>
+<div id = "maindiv"> 
+<div id = "titlediv">Image Uploader</div>
+<div>        
+   <input type="file" id="fileUpload">    
+</div>    
+<div> 
+   <button onclick="s3upload()">Submit</button>    
+</div>  
+ </div>  
+<div id ="link"></div>
+
+
+<script type="text/javascript">
+function s3upload() {
+   var files = document.getElementById('fileUpload').files;
+   if (files) 
+   {
+     var file = files[0];
+     var fileName = file.name.split(" ").join("");
+     var filePath = 'my-first-bucket-path/' + fileName;
+     var fileUrl = 'https://vigneshmbucket.s3.' + 'us-east-2' + '.amazonaws.com/' +  filePath;
+     s3.upload({
+        Key: filePath,
+        Body: file,
+        ACL: 'public-read'
+        }, function(err, data) {
+        if(err) {
+        console.log('error');
+        }
+        alert('Uploaded Image!');
+        })
+document.getElementById('link').innerHTML = '<div style="color:black;display : inline;"> Sharable link : </div>' + fileUrl
+   }
+};
+
+</script>
+
+</body>
+</html>
